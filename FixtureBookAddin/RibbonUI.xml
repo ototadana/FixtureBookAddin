@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="RibbonLoaded">
+  <ribbon>
+    <tabs>
+      <tab id="FixtureBookAddin" label="FixtureBook">
+        <group id="editGroup" label="{editGroup}">
+          <button id="sheetInsertButton" label="{sheetInsertButton}" imageMso="SheetInsert" size="large" onAction="SheetInsertButton_OnAction" getEnabled="GetEnabled" />
+          <button id="testCaseInsertButton" label="{testCaseInsertButton}" imageMso="TableRowsInsertBelowWord" size="large" onAction="TestCaseInsertButton_OnAction" getEnabled="GetEnabled" />
+          <button id="tableInsertButton" label="{tableInsertButton}" imageMso="TableInsert" size="large" onAction="TableInsertButton_OnAction" getEnabled="GetEnabled" />
+        </group>
+        <group id="configGroup" label="{configGroup}">
+          <button id="dbConfigButton" label="{dbConfigButton}" imageMso="DatabaseCopyDatabaseFile" size="large" onAction="dbConfigButton_OnAction" getEnabled="GetEnabled" />
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
