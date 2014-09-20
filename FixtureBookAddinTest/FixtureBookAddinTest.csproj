@@ -41,10 +41,12 @@
       <HintPath>..\packages\NetOffice.Excel.Net35.1.6.0.0\lib\net35\ExcelApi.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="FixtureBook">
-      <HintPath>..\packages\FixtureBook.5.5.5092.12715\lib\net35\FixtureBook.dll</HintPath>
+    <Reference Include="FixtureBook, Version=5.6.5373.33819, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FixtureBook.5.6.5373.33819\lib\net35\FixtureBook.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip">
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
@@ -59,6 +61,7 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="VBIDEApi">

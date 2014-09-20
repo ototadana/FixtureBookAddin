@@ -47,7 +47,7 @@ namespace XPFriend.FixtureBook.DB
 
         public Database GetDatabase()
         {
-            return GetDatabase(Addin.ConnectionSetting.ProviderName);
+            return GetDatabase(Addin.ConnectionSettingManager.Default.ProviderName);
         }
 
         public Database GetDatabase(string providerName)

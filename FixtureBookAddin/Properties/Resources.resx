@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="AnErrorOccured" xml:space="preserve">
     <value>An Error Occured in {0}
 Message: {1}
@@ -125,8 +128,14 @@ Details: {2}</value>
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ConfirmSetupMessage" xml:space="preserve">
+    <value>Setup the test case '[0}'</value>
+  </data>
   <data name="ConnectionStringLabel" xml:space="preserve">
     <value>Connection String</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="ExecuteButton" xml:space="preserve">
     <value>Execute Query</value>
@@ -138,8 +147,14 @@ Details: {2}</value>
   <data name="MaxRowsLabel" xml:space="preserve">
     <value>Max Row Count</value>
   </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="ProviderNameLabel" xml:space="preserve">
     <value>Provider Name</value>
+  </data>
+  <data name="SaveBookMessage" xml:space="preserve">
+    <value>Save this book</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>

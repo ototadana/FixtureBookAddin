@@ -61,7 +61,7 @@ namespace XPFriend.FixtureBook.DB
             {
                 using (DbConnection connection = factory.CreateConnection())
                 {
-                    connection.ConnectionString = Addin.ConnectionSetting.ConnectionString;
+                    connection.ConnectionString = Addin.ConnectionSettingManager.Default.ConnectionString;
                     connection.Open();
                     tableNames = GetTableNames(connection);
                 }
@@ -89,7 +89,7 @@ namespace XPFriend.FixtureBook.DB
         {
             using (DbConnection connection = factory.CreateConnection())
             {
-                connection.ConnectionString = Addin.ConnectionSetting.ConnectionString;
+                connection.ConnectionString = Addin.ConnectionSettingManager.Default.ConnectionString;
                 connection.Open();
                 DbCommand command = factory.CreateCommand();
                 command.Connection = connection;

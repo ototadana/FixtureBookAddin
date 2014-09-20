@@ -17,14 +17,11 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
-using System.Xml.Serialization;
 using NetOffice;
 using NetOffice.ExcelApi.Tools;
 using NetOffice.Tools;
 using XPFriend.FixtureBook.Actions;
-using XPFriend.FixtureBook.DB;
 using XPFriend.FixtureBook.Properties;
 using Excel = NetOffice.ExcelApi;
 using Office = NetOffice.OfficeApi;
@@ -36,13 +33,14 @@ namespace XPFriend.FixtureBook
     public class Addin : COMAddin
     {
         private static string applicationPath;
-        private static ConnectionSetting connectionSetting;
+        private static ConnectionSettingManager connectionSettingManager;
 
         private Excel.Application excel;
         private Office.IRibbonUI ribbon;
         private SheetInsertAction sheetInsertAction;
         private TestCaseInsertAction testCaseInsertAction;
         private TableInsertAction tableInsertAction;
+        private SetupAction setupAction;
         private OpenDBConfigAction openDBConfigAction;
 
         static Addin()
@@ -50,7 +48,14 @@ namespace XPFriend.FixtureBook
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             applicationPath = Path.Combine(appData, "XPFriend\\FixtureBook");
             InitializeLogFile();
-            connectionSetting = LoadConnectionSetting();
+            try
+            {
+                connectionSettingManager = ConnectionSettingManager.Load();
+            }
+            catch (Exception e)
+            {
+                HandleException("Initialize", e);
+            }
         }
 
         public Addin()
@@ -87,22 +92,6 @@ namespace XPFriend.FixtureBook
             return File.Exists(fileName) && File.GetLastWriteTime(fileName).Date != DateTime.Today;
         }
 
-        private static ConnectionSetting LoadConnectionSetting()
-        {
-            try
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(ConnectionSetting));
-                using (TextReader reader = new StreamReader(DBConfigPath, Encoding.UTF8))
-                {
-                    return serializer.Deserialize(reader) as ConnectionSetting;
-                }
-            }
-            catch (Exception)
-            {
-                return new ConnectionSetting() { ProviderName = new EmptyDatabase().ProviderName };
-            }
-        }
-
         internal static void HandleException(string tag, Exception e)
         {
             string message = String.Format(Resources.AnErrorOccured, tag, e.Message, DebugConsole.FileName);
@@ -122,11 +111,10 @@ namespace XPFriend.FixtureBook
             get { return Path.Combine(ApplicationPath, "db.config"); }
         }
 
-        internal static ConnectionSetting ConnectionSetting
+        internal static ConnectionSettingManager ConnectionSettingManager
         {
-            get { return connectionSetting; }
+            get { return connectionSettingManager; }
         }
-
 
         [RegisterErrorHandler]
         public static void RegisterErrorHandler(RegisterErrorMethodKind methodKind, Exception exception)
@@ -152,6 +140,8 @@ namespace XPFriend.FixtureBook
             customUI = customUI.Replace("{sheetInsertButton}", RibbonUI.sheetInsertButton);
             customUI = customUI.Replace("{testCaseInsertButton}", RibbonUI.testCaseInsertButton);
             customUI = customUI.Replace("{tableInsertButton}", RibbonUI.tableInsertButton);
+            customUI = customUI.Replace("{executeGroup}", RibbonUI.executeGroup);
+            customUI = customUI.Replace("{setupButton}", RibbonUI.setupButton);
             customUI = customUI.Replace("{configGroup}", RibbonUI.configGroup);
             customUI = customUI.Replace("{dbConfigButton}", RibbonUI.dbConfigButton);
             return customUI;
@@ -171,6 +161,7 @@ namespace XPFriend.FixtureBook
             this.sheetInsertAction = new SheetInsertAction(excel);
             this.testCaseInsertAction = new TestCaseInsertAction(excel);
             this.tableInsertAction = new TableInsertAction(excel);
+            this.setupAction = new SetupAction(excel);
             this.openDBConfigAction = new OpenDBConfigAction(excel);
         }
 
@@ -224,6 +215,8 @@ namespace XPFriend.FixtureBook
                         return testCaseInsertAction.IsEnabled;
                     case "tableInsertButton":
                         return tableInsertAction.IsEnabled;
+                    case "setupButton":
+                        return setupAction.IsEnabled;
                     case "dbConfigButton":
                         return openDBConfigAction.IsEnabled;
                     default:
@@ -255,6 +248,11 @@ namespace XPFriend.FixtureBook
         public void TableInsertButton_OnAction(Office.IRibbonControl control)
         {
             tableInsertAction.Execute();
+        }
+
+        public void SetupButton_OnAction(Office.IRibbonControl control)
+        {
+            setupAction.Execute();
         }
 
         #endregion

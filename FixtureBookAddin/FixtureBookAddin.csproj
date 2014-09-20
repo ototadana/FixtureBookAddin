@@ -12,8 +12,6 @@
     <AssemblyName>FixtureBookAddin</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>FixtureBookAddin.pfx</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -43,7 +41,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExcelApi, Version=1.6.0.0, Culture=neutral, PublicKeyToken=0b8d9ba5199d6dcb, processorArchitecture=MSIL">
@@ -52,6 +50,14 @@
       <HintPath>..\packages\NetOffice.Excel.Net35.1.6.0.0\lib\net35\ExcelApi.dll</HintPath>
     </Reference>
     <Reference Include="extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="FixtureBook, Version=5.6.5373.33819, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FixtureBook.5.6.5373.33819\lib\net35\FixtureBook.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="NetOffice, Version=1.6.0.0, Culture=neutral, PublicKeyToken=0939138a4a188afd, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -65,6 +71,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Drawing" />
@@ -76,6 +83,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\SetupAction.cs" />
     <Compile Include="ConnectionSetting.cs" />
     <Compile Include="Actions\ExcelAction.cs" />
     <Compile Include="Actions\InsertAction.cs" />
@@ -84,6 +92,7 @@
     <Compile Include="Actions\TableInsertAction.cs" />
     <Compile Include="Actions\TestCaseInsertAction.cs" />
     <Compile Include="Addin.cs" />
+    <Compile Include="ConnectionSettingManager.cs" />
     <Compile Include="DB\Database.cs" />
     <Compile Include="DB\DatabaseFactory.cs" />
     <Compile Include="DB\EmptyDatabase.cs" />
@@ -91,6 +100,9 @@
     <Compile Include="DB\SQLServerDatabase.cs" />
     <Compile Include="Forms\ConnectionSettingWindow.xaml.cs">
       <DependentUpon>ConnectionSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NameWindow.xaml.cs">
+      <DependentUpon>NameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\QueryWindow.xaml.cs">
       <DependentUpon>QueryWindow.xaml</DependentUpon>
@@ -126,13 +138,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="FixtureBookAddin.pfx" />
     <None Include="FixtureBookTemplate.ja.xlsx" />
     <None Include="FixtureBookTemplate.xlsx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\ConnectionSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\NameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -55,7 +55,7 @@ namespace XPFriend.FixtureBook.DB
         {
             try
             {
-                string connectionString = Addin.ConnectionSetting.ConnectionString;
+                string connectionString = Addin.ConnectionSettingManager.Default.ConnectionString;
                 string[] s = connectionString.Split(';', '=');
                 for (int i = 0; i < s.Length; i++)
                 {

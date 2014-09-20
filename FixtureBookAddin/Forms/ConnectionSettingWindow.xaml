@@ -6,10 +6,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              Title="FixtureBook - Database Configuration"
              WindowStyle="SingleBorderWindow"
-             Height="200" Width="640">
+             Height="240" Width="640">
     <StackPanel Margin="10">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -17,13 +18,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.ProviderNameLabel}" HorizontalAlignment="Right" />
-            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ProviderName" SelectionChanged="ProviderName_SelectionChanged" />
-            <Label Grid.Row="1" Grid.Column="0" Content="{x:Static properties:Resources.ConnectionStringLabel}" HorizontalAlignment="Right" />
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="ConnectionString" TextWrapping="WrapWithOverflow" Text="TextBox" MinLines="3" />
-            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="SaveButton" Content="{x:Static properties:Resources.SaveButton}" HorizontalAlignment="Left" Margin="0,20,0,10" Padding="4" IsDefault="True" Click="SaveButton_Click"/>
-            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="CancelButton" Content="{x:Static properties:Resources.CancelButton}" HorizontalAlignment="Right" Margin="0,20,0,10" Padding="4" IsCancel="True" Click="CancelButton_Click"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.NameLabel}" HorizontalAlignment="Right" />
+            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ConnectionName" SelectionChanged="ConnectionName_SelectionChanged" VerticalAlignment="Top"  IsEditable="True" TextBoxBase.TextChanged="ConnectionName_TextChanged"/>
+            <Button Grid.Row="0" Grid.Column="2" x:Name="AddButton" Content="{x:Static properties:Resources.AddButton}" HorizontalAlignment="Left" Margin="10,0,0,10" Padding="4,2,4,2" Click="AddButton_Click"/>
+            <Button Grid.Row="0" Grid.Column="3" x:Name="DeleteButton" Content="{x:Static properties:Resources.DeleteButton}" HorizontalAlignment="Left" Margin="10,0,0,10" Padding="4,2,4,2" Click="DeleteButton_Click"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="{x:Static properties:Resources.ProviderNameLabel}" HorizontalAlignment="Right" />
+            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="ProviderName" SelectionChanged="ProviderName_SelectionChanged" VerticalAlignment="Top" />
+            <Label Grid.Row="2" Grid.Column="0" Content="{x:Static properties:Resources.ConnectionStringLabel}" HorizontalAlignment="Right" />
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="ConnectionString" TextWrapping="WrapWithOverflow" Text="TextBox" MinLines="3" />
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" x:Name="SaveButton" Content="{x:Static properties:Resources.SaveButton}" HorizontalAlignment="Left" Margin="0,20,0,10" Padding="4" IsDefault="True" Click="SaveButton_Click"/>
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" x:Name="CancelButton" Content="{x:Static properties:Resources.CancelButton}" HorizontalAlignment="Right" Margin="0,20,0,10" Padding="4" IsCancel="True" Click="CancelButton_Click"/>
         </Grid>
     </StackPanel>
 </Window>

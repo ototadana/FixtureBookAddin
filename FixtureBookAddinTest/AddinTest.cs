@@ -51,16 +51,18 @@ namespace FixtureBookAddinTest
 
             // expect
             XElement[] groups = ribbonUI.GetElements("group");
-            Assert.AreEqual(2, groups.Count());
+            Assert.AreEqual(3, groups.Count());
             Assert.AreEqual("追加", ribbonUI.GetLabel(groups[0]));
-            Assert.AreEqual("設定", ribbonUI.GetLabel(groups[1]));
+            Assert.AreEqual("実行", ribbonUI.GetLabel(groups[1]));
+            Assert.AreEqual("設定", ribbonUI.GetLabel(groups[2]));
 
             XElement[] buttons = ribbonUI.GetElements("button");
-            Assert.AreEqual(4, buttons.Count());
+            Assert.AreEqual(5, buttons.Count());
             Assert.AreEqual("シート", ribbonUI.GetLabel(buttons[0]));
             Assert.AreEqual("テストケース", ribbonUI.GetLabel(buttons[1]));
             Assert.AreEqual("テーブル", ribbonUI.GetLabel(buttons[2]));
-            Assert.AreEqual("データベース", ribbonUI.GetLabel(buttons[3]));
+            Assert.AreEqual("セットアップ", ribbonUI.GetLabel(buttons[3]));
+            Assert.AreEqual("データベース", ribbonUI.GetLabel(buttons[4]));
         }
 
         [TestMethod]
@@ -72,16 +74,18 @@ namespace FixtureBookAddinTest
 
             // expect
             XElement[] groups = ribbonUI.GetElements("group");
-            Assert.AreEqual(2, groups.Count());
+            Assert.AreEqual(3, groups.Count());
             Assert.AreEqual("Add", ribbonUI.GetLabel(groups[0]));
-            Assert.AreEqual("Configuration", ribbonUI.GetLabel(groups[1]));
+            Assert.AreEqual("Run", ribbonUI.GetLabel(groups[1]));
+            Assert.AreEqual("Configuration", ribbonUI.GetLabel(groups[2]));
 
             XElement[] buttons = ribbonUI.GetElements("button");
-            Assert.AreEqual(4, buttons.Count());
+            Assert.AreEqual(5, buttons.Count());
             Assert.AreEqual("New Sheet", ribbonUI.GetLabel(buttons[0]));
             Assert.AreEqual("Test case", ribbonUI.GetLabel(buttons[1]));
             Assert.AreEqual("Table", ribbonUI.GetLabel(buttons[2]));
-            Assert.AreEqual("Database", ribbonUI.GetLabel(buttons[3]));
+            Assert.AreEqual("Setup", ribbonUI.GetLabel(buttons[3]));
+            Assert.AreEqual("Database", ribbonUI.GetLabel(buttons[4]));
         }
 
         internal class RibbonUI

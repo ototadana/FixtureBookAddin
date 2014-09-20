@@ -61,6 +61,15 @@ namespace XPFriend.FixtureBook.Properties {
         }
         
         /// <summary>
+        ///   Add に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AddButton {
+            get {
+                return ResourceManager.GetString("AddButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   An Error Occured in {0}
         ///Message: {1}
         ///Details: {2} に類似しているローカライズされた文字列を検索します。
@@ -81,11 +90,29 @@ namespace XPFriend.FixtureBook.Properties {
         }
         
         /// <summary>
+        ///   Setup the test case &apos;[0}&apos; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConfirmSetupMessage {
+            get {
+                return ResourceManager.GetString("ConfirmSetupMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Connection String に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConnectionStringLabel {
             get {
                 return ResourceManager.GetString("ConnectionStringLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Delete に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string DeleteButton {
+            get {
+                return ResourceManager.GetString("DeleteButton", resourceCulture);
             }
         }
         
@@ -118,11 +145,29 @@ namespace XPFriend.FixtureBook.Properties {
         }
         
         /// <summary>
+        ///   Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NameLabel {
+            get {
+                return ResourceManager.GetString("NameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Provider Name に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ProviderNameLabel {
             get {
                 return ResourceManager.GetString("ProviderNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save this book に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SaveBookMessage {
+            get {
+                return ResourceManager.GetString("SaveBookMessage", resourceCulture);
             }
         }
         

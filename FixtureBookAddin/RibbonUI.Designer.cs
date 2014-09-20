@@ -88,6 +88,24 @@ namespace XPFriend.FixtureBook {
         }
         
         /// <summary>
+        ///   Run に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string executeGroup {
+            get {
+                return ResourceManager.GetString("executeGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Setup に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string setupButton {
+            get {
+                return ResourceManager.GetString("setupButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   New Sheet に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string sheetInsertButton {

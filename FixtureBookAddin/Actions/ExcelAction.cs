@@ -150,5 +150,23 @@ namespace XPFriend.FixtureBook.Actions
             Excel.Range target = sheet.Cells[row, 1];
             Application.Goto(target, scroll);
         }
+
+        protected bool IsTestCaseSection(Excel.Range range)
+        {
+            return GetValue(range).StartsWith("A.");
+        }
+
+        protected string GetValue(Excel.Range range)
+        {
+            object value = range.Value;
+            if (value != null)
+            {
+                return value.ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

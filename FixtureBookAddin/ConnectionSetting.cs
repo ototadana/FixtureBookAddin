@@ -17,6 +17,7 @@ namespace XPFriend.FixtureBook
 {
     public class ConnectionSetting
     {
+        public string Name { get; set; }
         public string ProviderName { get; set; }
         public string ConnectionString { get; set; }
     }

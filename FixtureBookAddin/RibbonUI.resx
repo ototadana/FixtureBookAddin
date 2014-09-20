@@ -126,6 +126,12 @@
   <data name="editGroup" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="executeGroup" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="setupButton" xml:space="preserve">
+    <value>Setup</value>
+  </data>
   <data name="sheetInsertButton" xml:space="preserve">
     <value>New Sheet</value>
   </data>

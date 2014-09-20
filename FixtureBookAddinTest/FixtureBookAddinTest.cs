@@ -1,4 +1,5 @@
-﻿/*
+﻿using System.Configuration;
+/*
  * Copyright 2014 XPFriend Community.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +22,16 @@ namespace FixtureBookAddinTest
     [TestClass]
     public class FixtureBookAddinTest
     {
+        [ClassInitialize]
+        public static void Setup(TestContext context)
+        {
+            FixtureBook.ConnectionStrings.Clear();
+            foreach (ConnectionStringSettings strings in ConfigurationManager.ConnectionStrings) 
+            {
+                FixtureBook.ConnectionStrings.Add(strings);
+            }
+        }
+
         [TestMethod]
         public void SQLServer__1000件データ()
         {

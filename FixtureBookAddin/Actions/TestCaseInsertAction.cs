@@ -49,7 +49,7 @@ namespace XPFriend.FixtureBook.Actions
                     return GetLastCell().Row + 1;
                 }
                 row = range.Row;
-                if (range.Value.ToString().StartsWith("A."))
+                if (IsTestCaseSection(range))
                 {
                     if (row == 0 || IsValueDefinitionRow(range.Offset(-1)))
                     {

@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
-using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Xml.Serialization;
 using NetOffice;
 using XPFriend.FixtureBook.DB;
 
@@ -31,16 +29,42 @@ namespace XPFriend.FixtureBook.Forms
     public partial class ConnectionSettingWindow : Window
     {
         private DatabaseFactory databaseFactory = DatabaseFactory.GetInstance();
+        private ConnectionSettingManager manager = Addin.ConnectionSettingManager;
+        private List<ConnectionSetting> connectionSettings;
+        private bool updatingConnectionName;
 
         public ConnectionSettingWindow()
         {
             InitializeComponent();
             this.Background = SystemColors.ControlBrush;
-            databaseFactory.ProviderNames.ForEach(s => this.ProviderName.Items.Add(s));
-            ConnectionSetting setting = Addin.ConnectionSetting;
+            this.databaseFactory.ProviderNames.ForEach(s => this.ProviderName.Items.Add(s));
+            this.ProviderName.SelectedIndex = 0;
+            this.connectionSettings = manager.ConnectionSettings;
+            UpdateConnectionSettings(this.connectionSettings);
+        }
+
+        private void UpdateConnectionSettings(List<ConnectionSetting> connectionSettings)
+        {
+            updatingConnectionName = true;
+            try
+            {
+                this.ConnectionName.Items.Clear();
+                connectionSettings.ForEach(s => this.ConnectionName.Items.Add(s.Name));
+                this.DeleteButton.IsEnabled = connectionSettings.Count > 1;
+                this.ConnectionName.SelectedIndex = 0;
+                UpdateConnectionSetting(connectionSettings[0]);
+            }
+            finally
+            {
+                updatingConnectionName = false;
+            }
+        }
+
+        private void UpdateConnectionSetting(ConnectionSetting setting)
+        {
             this.ProviderName.SelectedItem = setting.ProviderName;
             this.ConnectionString.Text = setting.ConnectionString;
-            this.ConnectionString.IsReadOnly = !databaseFactory.GetDatabase().CanQuery;
+            this.ConnectionString.IsReadOnly = !databaseFactory.GetDatabase(setting.ProviderName).CanQuery;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -50,29 +74,36 @@ namespace XPFriend.FixtureBook.Forms
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateSetting())
+            if (ValidateSetting(this.ProviderName.Text, this.ConnectionString.Text))
             {
-                Save();
+                UpdateProviderNameAndConnectionString();
+                manager.Save(this.connectionSettings);
                 this.Close();
             }
 
         }
 
-        private bool ValidateSetting()
+        private void UpdateProviderNameAndConnectionString()
         {
-            DebugConsole.WriteLine("ProviderName: " + this.ProviderName.Text);
-            DebugConsole.WriteLine("ConnectionString: " + this.ConnectionString.Text);
-            if (!databaseFactory.GetDatabase(this.ProviderName.Text).CanQuery)
+            this.connectionSettings[0].ProviderName = this.ProviderName.Text;
+            this.connectionSettings[0].ConnectionString = this.ConnectionString.Text;
+        }
+
+        private bool ValidateSetting(string providerName, string connectionString)
+        {
+            DebugConsole.WriteLine("ProviderName: " + providerName);
+            DebugConsole.WriteLine("ConnectionString: " + connectionString);
+            if (!databaseFactory.GetDatabase(providerName).CanQuery)
             {
                 return true;
             }
 
             try
             {
-                DbProviderFactory factory = DbProviderFactories.GetFactory(this.ProviderName.Text);
+                DbProviderFactory factory = DbProviderFactories.GetFactory(providerName);
                 using (DbConnection connection = factory.CreateConnection())
                 {
-                    connection.ConnectionString = this.ConnectionString.Text;
+                    connection.ConnectionString = connectionString;
                     connection.Open();
                 }
                 return true;
@@ -85,23 +116,48 @@ namespace XPFriend.FixtureBook.Forms
             }
         }
 
-        private void Save()
-        {
-            ConnectionSetting setting = Addin.ConnectionSetting;
-            setting.ProviderName = this.ProviderName.Text;
-            setting.ConnectionString = this.ConnectionString.Text;
-            XmlSerializer serializer = new XmlSerializer(typeof(ConnectionSetting));
-            using (TextWriter writer = new StreamWriter(Addin.DBConfigPath, false, Encoding.UTF8))
-            {
-                serializer.Serialize(writer, setting);
-            }
-        }
-
         private void ProviderName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Database database = databaseFactory.GetDatabase(this.ProviderName.SelectedItem as string);
             this.ConnectionString.Text = database.DefaultConnectionString;
             this.ConnectionString.IsReadOnly = !database.CanQuery;
+        }
+
+        private void ConnectionName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (updatingConnectionName || this.ConnectionName.SelectedIndex == -1)
+            {
+                return;
+            }
+            ConnectionSettingManager.SetAsDefault(this.ConnectionName.SelectedIndex, this.connectionSettings);
+            UpdateConnectionSettings(this.connectionSettings);
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            NameWindow window = new NameWindow();
+            if (window.ShowDialog().Value)
+            {
+                UpdateProviderNameAndConnectionString();
+                ConnectionSettingManager.AddNewItem(window.ConnectionName, this.connectionSettings);
+                UpdateConnectionSettings(this.connectionSettings);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionSettingManager.Remove(this.ConnectionName.SelectedIndex, this.connectionSettings);
+            UpdateConnectionSettings(this.connectionSettings);
+        }
+
+        private void ConnectionName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.ConnectionName.Text))
+            {
+                return;
+            }
+            this.connectionSettings[0].Name = this.ConnectionName.Text;
+            UpdateConnectionSettings(this.connectionSettings);
         }
     }
 }
