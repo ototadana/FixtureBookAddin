@@ -96,6 +96,7 @@ namespace XPFriend.FixtureBook.DB
                 command.CommandText = query;
                 DbDataAdapter adapter = factory.CreateDataAdapter();
                 adapter.SelectCommand = command;
+                adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
                 DataTable table = new DataTable();
                 adapter.Fill(0, maxRecords, table);
                 return table;

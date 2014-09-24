@@ -15,6 +15,7 @@
  */
 using System;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using NetOffice.ExcelApi.GlobalHelperModules;
@@ -67,7 +68,7 @@ namespace XPFriend.FixtureBook.Actions
                 int columnRowIndex = rowIndex + 2;
                 int columnStartIndex = 4;
                 int columnEndIndex = columnStartIndex + columnCount - 1;
-                WriteColumnNames(sheet, dataTable, columnCount, columnRowIndex, columnStartIndex, columnEndIndex);
+                WriteColumnNames(sheet, dataTable, columnCount, columnRowIndex, columnStartIndex, columnEndIndex, section);
 
                 int rowCount = dataTable.Rows.Count;
                 int startRowIndex = columnRowIndex + 1;
@@ -140,14 +141,20 @@ namespace XPFriend.FixtureBook.Actions
             sheet.Range(valueStartCell, sheet.Cells[endRowIndex, columnEndIndex]).PasteSpecial(Excel.Enums.XlPasteType.xlPasteFormats);
         }
 
-        private static void WriteColumnNames(Excel.Worksheet sheet, DataTable dataTable, int columnCount, int columnRowIndex, int columnStartIndex, int columnEndIndex)
+        private static void WriteColumnNames(Excel.Worksheet sheet, DataTable dataTable, int columnCount, int columnRowIndex, int columnStartIndex, int columnEndIndex, string section)
         {
+            bool addStar = section == "F";
             StringBuilder sb = new StringBuilder();
+
             for (int i = 0; i < columnCount; i++)
             {
                 if (i > 0)
                 {
                     sb.Append("\t");
+                }
+                if (addStar && dataTable.PrimaryKey.Contains(dataTable.Columns[i]))
+                {
+                    sb.Append("*");
                 }
                 sb.Append(dataTable.Columns[i].ColumnName);
             }
