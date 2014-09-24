@@ -1,4 +1,4 @@
 @echo off
 
 cd /d %~sdp0
-start wscript install.js /u
+start wscript runas.js "regasm.bat /unregister"

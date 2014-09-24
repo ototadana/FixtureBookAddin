@@ -163,8 +163,10 @@
 del FixtureBookTemplate*.xlsx</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)install.*" "$(TargetDir)"
-copy "$(ProjectDir)uninstall.*" "$(TargetDir)"
+    <PostBuildEvent>copy "$(ProjectDir)install.bat" "$(TargetDir)"
+copy "$(ProjectDir)uninstall.bat" "$(TargetDir)"
+copy "$(ProjectDir)runas.js" "$(TargetDir)"
+copy "$(ProjectDir)regasm.bat" "$(TargetDir)"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
