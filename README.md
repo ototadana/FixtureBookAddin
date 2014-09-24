@@ -10,7 +10,7 @@ FixtureBook の作成・編集をサポートする Excel アドイン
 
 ダウンロード
 ------------
-*   <http://xpfriend.com/fixture-book/FixtureBookAddin-2.0.zip>
+*   <http://xpfriend.com/fixture-book/FixtureBookAddin-2.1.zip>
 
 
 必須ソフトウェア

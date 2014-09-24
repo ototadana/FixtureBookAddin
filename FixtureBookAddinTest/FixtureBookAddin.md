@@ -181,5 +181,5 @@ uninstall.bat でアドインのアンインストールが出来る
 ### README.txt
 
 1.  README.txt のダウンロードURLが
-    `http://xpfriend.com/fixture-book/FixtureBookAddin-2.0.zip`
+    `http://xpfriend.com/fixture-book/FixtureBookAddin-2.1.zip`
     となっていること [*]
